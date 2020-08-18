@@ -7,6 +7,7 @@ An extremely lightweight wrapper around a Gnuplot process.
 The main entry point is the `gnuplot` macro. For example, the Gnuplot program
 ```
 set samples 400
+set title "Example" font ",20"
 plot [-10:10] real(sin(x)**besj0(x))
 ```
 
@@ -19,6 +20,9 @@ can be expressed as
   (:plot (fragment "[-10:10]") (fragment "real(sin(x)**besj0(x))")))
 ```
 
+which renders as
+
+![example image](https://github.com/kilimanjaro/interactive-gnuplot/blob/master/example.svg?sanitize=true)
 
 ## How it Works
 
