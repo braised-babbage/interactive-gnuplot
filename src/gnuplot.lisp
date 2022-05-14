@@ -6,6 +6,12 @@
 (defparameter *gnuplot-timeout-seconds* 1d0
   "Default number of seconds to allow for a response from the Gnuplot process.")
 
+(defvar *debug-stream* nil)
+
+(defmacro debug-format (format-control &rest format-args)
+  `(when *debug-stream*
+     (format *debug-stream* ,format-control ,@format-args)))
+
 (defun launch-gnuplot ()
   "Launch the Gnuplot process, if there is none active."
   (flet ((launch-op ()
@@ -69,8 +75,10 @@ If there is no active process, this creates one."
   (unless *gnuplot-process*
     (setf *gnuplot-process* (launch-gnuplot)))
   (let* ((sentinel (write-to-string (random (expt 2 64)))))
+    (debug-format "~A~%" command)
     (format (uiop:process-info-input *gnuplot-process*)
 	    "~A~%" command)
+    (debug-format "print ~S~%" sentinel)
     (format (uiop:process-info-input *gnuplot-process*)
 	    "print ~S~%" sentinel)
     (finish-output (uiop:process-info-input *gnuplot-process*))
