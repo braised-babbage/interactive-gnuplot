@@ -21,10 +21,13 @@
 	   (setf *gnuplot-process* (launch-op)))
 	  (t nil))))
 
-(defstruct (gnuplot-fragment
-	    (:constructor fragment (string)))
+(defstruct gnuplot-fragment
   "A representation of part of a gnuplot command."
   string)
+
+(defun fragment (format-control &rest format-args)
+  (make-gnuplot-fragment
+   :string (apply #'format nil format-control format-args)))
 
 
 (defgeneric translate-to-fragment (obj)
