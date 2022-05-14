@@ -36,8 +36,17 @@
   (:method ((obj string))
     (fragment (format nil "~S" obj)))
 
-  (:method ((obj number))
-    (fragment (format nil "~A" obj)))
+  (:method ((obj integer))
+    (fragment (format nil "~D" obj)))
+
+  (:method ((obj real))
+    (fragment (format nil "~F" (coerce obj 'double-float))))
+
+  (:method ((obj list))
+    (fragment
+     (format nil "~{~A~^,~}"
+	     (mapcar (lambda (elt) (gnuplot-fragment-string (translate-to-fragment elt)))
+		     obj))))
 
   (:method ((obj gnuplot-fragment))
     obj))
