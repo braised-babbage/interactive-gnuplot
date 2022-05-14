@@ -24,6 +24,18 @@ which renders as
 
 ![example image](https://github.com/kilimanjaro/interactive-gnuplot/blob/master/example.svg?sanitize=true)
 
+## Using The `fragment-syntax` readtable
+
+For convenience, we provide a readtable `fragment-syntax` which allows fragments to be delimited by curly brackets, so that `{foo bar}` is read as `(fragment "foo bar")`. Using this, we may rewrite the above example as
+
+```
+(named-readtables:in-readtable fragment-syntax)
+(gnuplot
+  (:set :samples 400)
+  (:set :title "Example" :font ",20")
+  (:plot {[-10:10]} {real(sin(x)**besj0(x))}))
+```
+
 ## How it Works
 
 `interactive-gnuplot` manages a Gnuplot process. Commands, specified as Lisp strings, may be executed via `execute-command`. 

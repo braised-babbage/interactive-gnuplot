@@ -4,4 +4,5 @@
    #:gnuplot
    #:fragment
    #:gnuplot-command-string
-   #:execute-command))
+   #:execute-command
+   #:fragment-syntax))
